@@ -1,0 +1,144 @@
+# Binance Futures Symbol Configuration
+
+# Priority symbols (download first)
+priority_symbols:
+  # Major cryptocurrencies
+  - BTCUSDT
+  - ETHUSDT
+  - BNBUSDT
+  - XRPUSDT
+  - SOLUSDT
+  - ADAUSDT
+  - DOGEUSDT
+  - AVAXUSDT
+  - SHIBUSDT
+  - DOTUSDT
+  - MATICUSDT
+  - LTCUSDT
+  - LINKUSDT
+  - UNIUSDT
+  - ATOMUSDT
+  
+  # High volume altcoins
+  - ETCUSDT
+  - XLMUSDT
+  - FILUSDT
+  - TRXUSDT
+  - NEARUSDT
+  - ALGOUSDT
+  - FTMUSDT
+  - SANDUSDT
+  - MANAUSDT
+  - GALAUSDT
+  
+  # DeFi tokens
+  - AAVEUSDT
+  - SNXUSDT
+  - COMPUSDT
+  - MKRUSDT
+  - SUSHIUSDT
+  - CRVUSDT
+  - 1INCHUSDT
+  
+  # Layer 2
+  - ARBUSDT
+  - OPUSDT
+  - IMXUSDT
+  
+  # New listings
+  - SUIUSDT
+  - APTUSDT
+  - INJUSDT
+  - SEIUSDT
+  - TIAUSDT
+
+# Known delisted symbols (historical data only)
+delisted_symbols:
+  - DEFIUSDT
+  - BTCSTUSDT
+  - CVCUSDT
+  - MDTUSDT
+  - TORNUSDT
+  - KMDUSDT
+  - SCUSDT
+  - DGBUSDT
+  - NMRUSDT
+  - FTTUSDT      # FTX token
+  - LUNAUSDT     # Terra Luna (old)
+  - USTUSDT      # TerraUSD
+  - SRMUSDT      # Serum
+  - RAYUSDT      # Raydium
+
+# Symbol categories
+categories:
+  major:
+    - BTCUSDT
+    - ETHUSDT
+    - BNBUSDT
+    
+  defi:
+    - LINKUSDT
+    - UNIUSDT
+    - AAVEUSDT
+    - SNXUSDT
+    - COMPUSDT
+    - MKRUSDT
+    - SUSHIUSDT
+    - YFIUSDT
+    - CRVUSDT
+    - 1INCHUSDT
+    
+  layer1:
+    - SOLUSDT
+    - ADAUSDT
+    - AVAXUSDT
+    - DOTUSDT
+    - ATOMUSDT
+    - NEARUSDT
+    - ALGOUSDT
+    - FTMUSDT
+    - ICPUSDT
+    - EGLDUSDT
+    
+  layer2:
+    - MATICUSDT
+    - ARBUSDT
+    - OPUSDT
+    - IMXUSDT
+    
+  meme:
+    - DOGEUSDT
+    - SHIBUSDT
+    - PEPEUSDT
+    - FLOKIUSDT
+    - BONKUSDT
+    - WIFUSDT
+    
+  gaming:
+    - SANDUSDT
+    - MANAUSDT
+    - AXSUSDT
+    - ENJUSDT
+    - GALAUSDT
+    - ALICEUSDT
+    - CHRUSDT
+    - TLMUSDT
+    
+  ai:
+    - FETUSDT
+    - AGIXUSDT
+    - OCEANUSDT
+    - RNDRUSDT
+    - ROSEUSDT
+    
+  storage:
+    - FILUSDT
+    - ARUSDT
+    - STORJUSDT
+
+# Volume filters
+volume_filters:
+  high_volume:       100000000   # > $100M daily
+  medium_volume:     10000000    # > $10M daily
+  low_volume:        1000000     # > $1M daily
+  minimum_volume:    100000      # > $100K daily

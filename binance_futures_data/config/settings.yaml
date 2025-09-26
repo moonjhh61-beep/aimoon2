@@ -1,0 +1,46 @@
+# Binance Futures Data Configuration
+
+# Data source settings
+data_source:
+  base_url: "https://data.binance.vision"
+  api_url: "https://fapi.binance.com/fapi/v1"
+
+# Multiprocessing settings (PRIMARY)
+multiprocessing:
+  enabled: true             # Use multiprocessing by default
+  num_workers: null         # null = auto-detect (CPU count), or specify number
+  max_workers: 20           # Maximum worker processes cap
+  
+# Download settings
+download:
+  use_monthly: true         # Use monthly aggregated files when possible
+  max_retries: 1            # Maximum retry attempts per file
+  retry_delay: 0.5          # Initial retry delay in seconds
+  timeout: 60               # Download timeout in seconds
+  chunk_size: 131072        # Download chunk size in bytes (128KB)
+
+# Storage settings
+storage:
+  base_dir: "data"
+  formats:
+    - parquet              # Primary format for performance
+    - csv                  # Optional: Keep CSV for readability
+  compression: "snappy"    # Parquet compression (snappy is fastest)
+  cleanup_csv: true        # Remove CSV after Parquet conversion
+  cleanup_zip: true        # Remove ZIP after extraction
+
+# Data settings
+data:
+  data_types:              # Data types to download by default
+    - klines               # OHLCV data
+    - funding_rate         # Funding rate (most important for strategies)
+    - mark_price          # Optional: Mark price for liquidations
+    # - index_price        # Optional: Spot index price
+    # - premium_index      # Optional: Futures premium
+  
+  interval: "1h"           # 1 hour candles
+
+# Performance settings
+performance:
+  batch_size: 50          # Symbols per batch for processing
+  memory_limit_gb: 8      # Maximum memory usage

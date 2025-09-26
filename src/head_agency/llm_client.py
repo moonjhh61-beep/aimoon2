@@ -2,7 +2,11 @@
 
 from __future__ import annotations
 
+import logging
 from typing import Optional
+
+
+logger = logging.getLogger(__name__)
 
 
 class LLMClient:
@@ -22,6 +26,14 @@ class LLMClient:
     def complete(self, system_prompt: str, user_message: str, *, temperature: float = 0.7) -> str:
         """Generate a response using the stored system prompt and the user message."""
 
+        logger.info(
+            "LLM request:\nModel: %s | Temperature: %s\nSystem prompt:\n%s\n--\nUser message:\n%s",
+            self._model,
+            temperature,
+            system_prompt,
+            user_message,
+        )
+
         response = self._client.chat.completions.create(
             model=self._model,
             temperature=temperature,
@@ -34,7 +46,9 @@ class LLMClient:
         content: Optional[str] = getattr(message, "content", None)
         if not content:
             raise RuntimeError("LLM response contained no content")
-        return content.strip()
+        text = content.strip()
+        logger.info("LLM response:\n%s", text)
+        return text
 
     @property
     def model(self) -> str:

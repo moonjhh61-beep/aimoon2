@@ -1,12 +1,16 @@
 # HeadAgency
 
-Simple CLI wrapper that sends your instructions to an LLM while keeping the base prompt and secrets easy to manage.
+Simple CLI wrapper that sends your instructions to an LLM while keeping the base prompt and secrets easy to manage. The package now ships three ready-made personas: HeadAgency, ResearchAgency, and BacktestAgency.
 
 ## Project layout
 
 - `prompts/head_agency_prompt.txt` – system prompt HeadAgency uses. Edit this to shape the agency's personality and policy.
+- `prompts/research_agency_prompt.txt` – default instructions for ResearchAgency.
+- `prompts/backtest_agency_prompt.txt` – default instructions for BacktestAgency.
 - `secrets/llm_api_key.txt.example` – optional fallback store for your LLM API key if you prefer not to use environment variables.
 - `src/head_agency/` – Python package with the CLI entry point and helper classes.
+- `src/research_agency/` – CLI and helpers for the research persona.
+- `src/backtest_agency/` – CLI and helpers for the backtesting persona.
 
 ## Getting started
 
@@ -19,7 +23,7 @@ Simple CLI wrapper that sends your instructions to an LLM while keeping the base
    ```bash
    export HEAD_AGENCY_API_KEY="sk-your-real-key"
    ```
-   The CLI reads the `HEAD_AGENCY_API_KEY` variable by default. For shells like fish or PowerShell, use the appropriate syntax.
+   The HeadAgency CLI reads the `HEAD_AGENCY_API_KEY` variable by default. For shells like fish or PowerShell, use the appropriate syntax. The other personas default to `RESEARCH_AGENCY_API_KEY` and `BACKTEST_AGENCY_API_KEY`, but you can override the name via `--key-env` when running.
 4. (Optional) If you cannot use environment variables, copy the template file and add your key as a fallback:
    ```bash
    cp secrets/llm_api_key.txt.example secrets/llm_api_key.txt
@@ -28,26 +32,48 @@ Simple CLI wrapper that sends your instructions to an LLM while keeping the base
 
 ## Usage
 
-- Edit the system prompt in `prompts/head_agency_prompt.txt` whenever you want to change the agency's behaviour.
-- Run the CLI once with a single message:
+- Edit the persona prompt files under `prompts/` to adjust tone and policy.
+- Run one of the CLIs with a single message:
   ```bash
   head-agency "오늘 일정 정리해줘"
+  research-agency "최근 AI 논문 요약해줘"
+  backtest-agency "볼린저밴드 전략 백테스트 요약해줘"
   ```
 - Or launch the interactive shell (default when no message is provided):
   ```bash
   head-agency
+  research-agency
+  backtest-agency
   ```
+- When HeadAgency's reply includes `선택한 branch : 1`, it automatically invokes ResearchAgency, passing the HeadAgency reply as the new user message (and the original user message as context). `선택한 branch : 2` launches BacktestAgency. The branch reuses the same API key options and request text you supplied to HeadAgency.
 
 ### Options
 
 - `--prompt PATH` – point to an alternative prompt file.
-- `--key-env NAME` – change the environment variable that stores the API key (default `HEAD_AGENCY_API_KEY`).
+- `--key-env NAME` – change the environment variable that stores the API key (defaults: `HEAD_AGENCY_API_KEY`, `RESEARCH_AGENCY_API_KEY`, `BACKTEST_AGENCY_API_KEY`).
 - `--key-file PATH` – fallback key file if the environment variable is not set.
+- `--request TEXT` / `--request-file PATH` – prepend a structured request under the persona-specific heading before chatting.
 - `--model MODEL_ID` – override the default `gpt-4o-mini` model.
 - `--temperature VALUE` – adjust sampling temperature (0–2).
+
+## Prompt templates
+
+- Prompt files are simple templates that use section markers:
+  ```text
+  === system ===
+  ... instructions ...
+
+  {{ user_request_section }}
+
+  === user ===
+  {{ user_message }}
+  ```
+- The `system` section becomes the system prompt. The optional `user` section formats the user message before it is sent to the LLM (default: raw message).
+- Available placeholders include `{{ user_request }}`, `{{ user_request_heading }}`, `{{ user_request_section }}`, `{{ user_message }}`, `{{ runtime_context_section }}`, `{{ progress_section }}`, and `{{ progress_count }}`. Missing placeholders resolve to empty strings, so feel free to omit ones you do not need.
+- Copy a persona prompt, tailor the ordering, headings, or additional context, then point the CLI at the customised file via `--prompt`.
 
 ## Notes
 
 - The project uses the official `openai` Python package. Install updates as required by your chosen model.
 - The actual fallback key file `secrets/llm_api_key.txt` remains ignored by Git via `.gitignore`.
-
+- LLM requests and responses are logged at INFO level; set `HEAD_AGENCY_LOG_LEVEL=DEBUG` (or another level) before running to adjust verbosity.
