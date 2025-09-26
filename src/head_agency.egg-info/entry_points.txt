@@ -1,0 +1,2 @@
+[console_scripts]
+head-agency = head_agency.main:main

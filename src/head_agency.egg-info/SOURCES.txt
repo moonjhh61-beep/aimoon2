@@ -1,0 +1,14 @@
+README.md
+pyproject.toml
+src/head_agency/__init__.py
+src/head_agency/agency.py
+src/head_agency/cli_args.py
+src/head_agency/config.py
+src/head_agency/llm_client.py
+src/head_agency/main.py
+src/head_agency.egg-info/PKG-INFO
+src/head_agency.egg-info/SOURCES.txt
+src/head_agency.egg-info/dependency_links.txt
+src/head_agency.egg-info/entry_points.txt
+src/head_agency.egg-info/requires.txt
+src/head_agency.egg-info/top_level.txt
