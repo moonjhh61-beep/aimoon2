@@ -30,6 +30,10 @@ class ColorFormatter(logging.Formatter):
         if not self._use_color:
             return message
 
+        custom = getattr(record, "color_code", None)
+        if custom:
+            return f"{custom}{message}{COLOR_RESET}"
+
         prefix = COLOR_MAP.get(record.levelno)
         if not prefix:
             return message

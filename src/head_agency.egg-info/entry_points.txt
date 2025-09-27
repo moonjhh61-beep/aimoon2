@@ -1,2 +1,6 @@
 [console_scripts]
+backtest-agency = backtest_agency.main:main
 head-agency = head_agency.main:main
+research-agency = research_agency.main:main
+research-runner-agency = research_runner_agency.main:main
+research-summary-agency = research_summary_agency.main:main

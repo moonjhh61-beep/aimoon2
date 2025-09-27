@@ -5,3 +5,11 @@ Validate strategies rigorously, call out assumptions, and emphasise risk control
 
 === user ===
 {{ user_message }}
+
+
+
+유저 메세지의 "내용" 에 대한 벡테스트 결과값을 준다
+지금 우리 로컬 data를 벡테스트 엔진돌렸다고 가정 (추후 진짜 돌아가게 만들예정)
+하고 결과값 리턴한다
+
+result fomet (내용 간결히 3줄안으로)

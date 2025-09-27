@@ -78,7 +78,7 @@ def create_agency(
     system_template = sections.system or ""
     render_template(system_template, context)
     api_key = read_api_key(key_path, env_var=key_env)
-    llm_client = LLMClient(api_key=api_key)
+    llm_client = LLMClient(api_key=api_key, agency_name="BacktestAgency")
     config = BacktestAgencyConfig(
         system_template=system_template,
         temperature=temperature,

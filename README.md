@@ -1,16 +1,20 @@
 # HeadAgency
 
-Simple CLI wrapper that sends your instructions to an LLM while keeping the base prompt and secrets easy to manage. The package now ships three ready-made personas: HeadAgency, ResearchAgency, and BacktestAgency.
+Simple CLI wrapper that sends your instructions to an LLM while keeping the base prompt and secrets easy to manage. The package now ships five ready-made personas: HeadAgency, ResearchAgency, BacktestAgency, ResearchRunnerAgency, and ResearchSummaryAgency.
 
 ## Project layout
 
 - `prompts/head_agency_prompt.txt` – system prompt HeadAgency uses. Edit this to shape the agency's personality and policy.
 - `prompts/research_agency_prompt.txt` – default instructions for ResearchAgency.
 - `prompts/backtest_agency_prompt.txt` – default instructions for BacktestAgency.
+- `prompts/research_runner_agency_prompt.txt` – execution-focused brief for ResearchRunnerAgency.
+- `prompts/research_summary_agency_prompt.txt` – summarisation brief for ResearchSummaryAgency.
 - `secrets/llm_api_key.txt.example` – optional fallback store for your LLM API key if you prefer not to use environment variables.
 - `src/head_agency/` – Python package with the CLI entry point and helper classes.
 - `src/research_agency/` – CLI and helpers for the research persona.
 - `src/backtest_agency/` – CLI and helpers for the backtesting persona.
+- `src/research_runner_agency/` – CLI and helpers for the research runner persona.
+- `src/research_summary_agency/` – CLI and helpers for the research summary persona.
 
 ## Getting started
 
@@ -37,6 +41,8 @@ Simple CLI wrapper that sends your instructions to an LLM while keeping the base
   ```bash
   head-agency "오늘 일정 정리해줘"
   research-agency "최근 AI 논문 요약해줘"
+  research-runner-agency "BTC 시장 리서치 실행 계획 만들어줘"
+  research-summary-agency "리서치 로그 요약해줘"
   backtest-agency "볼린저밴드 전략 백테스트 요약해줘"
   ```
 - Or launch the interactive shell (default when no message is provided):
@@ -50,7 +56,7 @@ Simple CLI wrapper that sends your instructions to an LLM while keeping the base
 ### Options
 
 - `--prompt PATH` – point to an alternative prompt file.
-- `--key-env NAME` – change the environment variable that stores the API key (defaults: `HEAD_AGENCY_API_KEY`, `RESEARCH_AGENCY_API_KEY`, `BACKTEST_AGENCY_API_KEY`).
+- `--key-env NAME` – change the environment variable that stores the API key (defaults: `HEAD_AGENCY_API_KEY`, `RESEARCH_AGENCY_API_KEY`, `RESEARCH_RUNNER_AGENCY_API_KEY`, `RESEARCH_SUMMARY_AGENCY_API_KEY`, `BACKTEST_AGENCY_API_KEY`).
 - `--key-file PATH` – fallback key file if the environment variable is not set.
 - `--request TEXT` / `--request-file PATH` – prepend a structured request under the persona-specific heading before chatting.
 - `--model MODEL_ID` – override the default `gpt-4o-mini` model.

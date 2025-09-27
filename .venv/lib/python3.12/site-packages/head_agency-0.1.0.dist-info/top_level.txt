@@ -1,1 +1,5 @@
+backtest_agency
 head_agency
+research_agency
+research_runner_agency
+research_summary_agency
